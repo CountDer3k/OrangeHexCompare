@@ -1,3 +1,7 @@
+# Der3k Burrola
+# July 2020
+# Orange Hex Compare
+
 import binascii
 import os
 from tkinter import Tk

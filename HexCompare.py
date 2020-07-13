@@ -3,7 +3,6 @@
 # Orange Hex Compare
 
 import binascii
-import os
 from tkinter import Tk
 from tkinter.filedialog import askopenfilename
 
@@ -12,12 +11,13 @@ def displayFilesInHex(file1, file2):
 	hexString1 = ''
 	hexString2 = ''
 	offset = -16
-	for i in range (len(file1)):
+	largerFile = file1 if len(file1) > len(file2) else file2
+	for i in range (len(largerFile)):
 		if(i%32==0):
 			# 16 is the 16 bytes shown on screen
 			offset = offset + 16
-			hexString1 = hexString1 + hex(offset)
-			hexString2 = hexString2 + hex(offset)
+			hexString1 = hexString1 + '\n' + hex(offset)
+			hexString2 = hexString2 + '\n' +hex(offset)
 		if(i%8==0):
 			hexString1 = hexString1 + '        '
 			hexString2 = hexString2 + '        '
@@ -33,7 +33,7 @@ def displayFilesInHex(file1, file2):
 			hexString2 = hexString2 + file2[i] + ' '+ "\033[92m"
 	print('File 1: ')
 	print(hexString1)
-	print('-------------------')
+	print('\n-------------------\n')
 	print('File 2: ')
 	print(hexString2)
 

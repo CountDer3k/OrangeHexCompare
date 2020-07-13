@@ -11,16 +11,17 @@ def displayFilesInHex(file1, file2):
 	hexString1 = ''
 	hexString2 = ''
 	offset = -16
-	largerFile = file1 if len(file1) > len(file2) else file2
+	largerFile = file1 if len(file1) < len(file2) else file2
 	for i in range (len(largerFile)):
+		# This is the sidebar that shows the hex offset
 		if(i%32==0):
 			# 16 is the 16 bytes shown on screen
 			offset = offset + 16
-			hexString1 = hexString1 + '\n' + hex(offset)
-			hexString2 = hexString2 + '\n' +hex(offset)
+			hexString1 = hexString1 + '\n' + hex(offset) + '\t'
+			hexString2 = hexString2 + '\n' +hex(offset) + '\t'
 		if(i%8==0):
-			hexString1 = hexString1 + '        '
-			hexString2 = hexString2 + '        '
+			hexString1 = hexString1 + '\t'
+			hexString2 = hexString2 + '\t'
 		if(i%2==0):
 			if(file1[i] != file2[i]):
 				hexString1 = hexString1 + "\033[91m"+ file1[i]
@@ -31,6 +32,7 @@ def displayFilesInHex(file1, file2):
 		else:	
 			hexString1 = hexString1 + file1[i] + ' '+ "\033[92m"
 			hexString2 = hexString2 + file2[i] + ' '+ "\033[92m"
+	#Print information out to the screen
 	print('File 1: ')
 	print(hexString1)
 	print('\n-------------------\n')
@@ -70,9 +72,13 @@ def compareFiles(file1, file2):
 				print('Byte at: ' + "\033[91m"+ str(hex(i)) + "\033[92m"+ ' are different!')
 
 
+def main():
+	file1Hex = pickFile()
+	file2Hex = pickFile()
+	displayFilesInHex(file1Hex, file2Hex)
+	compareFiles(file1Hex, file2Hex)
 
-file1Hex = pickFile()
-file2Hex = pickFile()
-displayFilesInHex(file1Hex, file2Hex)
-compareFiles(file1Hex, file2Hex)
 
+
+if __name__ == "__main__":
+	main()

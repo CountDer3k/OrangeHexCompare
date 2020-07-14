@@ -3,7 +3,6 @@
 # Orange Hex Compare
 
 import binascii
-import os
 from tkinter import Tk
 from tkinter.filedialog import askopenfilename
 
@@ -30,7 +29,6 @@ def getHexOf(file):
 			if(pw_bytes != ''):	
 				bt = ByteHolder()
 				bt.byteValue = pw_bytes
-				#Add 1 to make this the next offset
 				bt.byteOffset = hex(x)
 				bt.byteNextOffset = hex(x+1)
 				hexString.append(bt)
@@ -52,6 +50,7 @@ def compareFiles(file1, file2):
 			count = count + 1
 			file1[i].byteColor = "\033[91m"
 			file2[i].byteColor = "\033[91m"
+			#?? Show file 1 vs file 2 on print line
 			print('Byte at: ' + file1[i].byteColor + file1[i].byteOffset + " \033[92m" + 'are different!')
 	return count
 
@@ -72,9 +71,9 @@ def displayBothFilesInHex(file1, file2):
 			hexString1= hexString1 + ' '
 			hexString2= hexString2 + ' '
 		if((i+1)%16==0 or i==len(file1)-1):
-			# Check length of hexString1, if it doesn't reach the halfway mark, add filler to make alignment work
-			# Make sure it doesn't show the offset for the next line if its the last line
-			# Account for files of different sizes where it belongs the most in
+			#?? Check length of hexString1, if it doesn't reach the halfway mark, add filler to make alignment work
+			#?? Make sure it doesn't show the offset for the next line if its the last line
+			#?? Account for files of different sizes where it belongs the most in
 			hexString = hexString + (hexString1 + ' | ' + hexString2) + '\n' + str(file1[i].byteNextOffset) + '\t'
 			hexString1 = ''
 			hexString2 = ''
@@ -95,6 +94,7 @@ def main():
 	print('Number of differences: ' + str(compareFiles(file1Hex, file2Hex)))
 	print('\n\n-------------------\n\n')
 	displayBothFilesInHex(file1Hex, file2Hex)
+	#??Ask user to show comparison or show differences only
 
 
 if __name__ == "__main__":

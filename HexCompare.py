@@ -52,7 +52,8 @@ def compareFiles(file1, file2):
 			file1[i].byteColor = "\033[91m"
 			file2[i].byteColor = "\033[91m"
 			#?? Show file 1 vs file 2 on print line
-			print('Byte at: ' + file1[i].byteColor + file1[i].byteOffset + " \033[92m" + 'are different!')
+			compareString = 'File 1: '  + file1[i].byteColor + file1[i].byteValue + " \033[92mvs File 2: " + file1[i].byteColor + file2[i].byteValue + " \033[92m"
+			print('Byte at: ' + file1[i].byteColor + file1[i].byteOffset + " \033[92m" + 'are different! ' + compareString)
 	return count
 
 def saveToString(data, file, i, ending):
@@ -98,14 +99,20 @@ def main():
 		print('[1] Display 2 files side by side')
 		print('[2] Display differences only')
 		print('[3] Exit')
-		answer = str(input())
-		
+		answer = str(input())		
 		os.system('clear')
+
 		if(answer == '1'):
+			print('--------------------------')
+			print('     File Comparison      ')
+			print('--------------------------\n')
 			displayBothFilesInHex(file1Hex, file2Hex)
 			print('\n\n-------------------\n\n')
 		if(answer == '2'):
-			print('Number of differences: ' + str(compareFiles(file1Hex, file2Hex)))
+			print('--------------------------')
+			print('    Offset Differences    ')
+			print('--------------------------\n')
+			print('\nNumber of differences: ' + str(compareFiles(file1Hex, file2Hex)))
 			print('\n\n-------------------\n\n')
 		if(answer == '3'):
 			print('\n\n-------------------\n\n')

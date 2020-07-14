@@ -11,7 +11,8 @@ class ByteHolder():
 	byteValue = ''
 	byteColor = "\033[92m"
 	byteOffset = -1
-
+	byteNextOffset = -1
+ 
 #-------------------
 
 def getHexOf(file):
@@ -29,7 +30,9 @@ def getHexOf(file):
 			if(pw_bytes != ''):	
 				bt = ByteHolder()
 				bt.byteValue = pw_bytes
+				#Add 1 to make this the next offset
 				bt.byteOffset = hex(x)
+				bt.byteNextOffset = hex(x+1)
 				hexString.append(bt)
 				x = x + 1
 			else:
@@ -70,12 +73,11 @@ def displayBothFilesInHex(file1, file2):
 			hexString2= hexString2 + ' '
 		if((i+1)%16==0 or i==len(file1)-1):
 			# Check length of hexString1, if it doesn't reach the halfway mark, add filler to make alignment work
-			# Make sure to fix offsets by adding 1 to i, but check that its not added in the last one to prevent out of bounds error
-			
-			hexString = hexString + (hexString1 + ' | ' + hexString2) + '\n' + str(file1[i].byteOffset) + '\t'
+			# Make sure it doesn't show the offset for the next line if its the last line
+			# Account for files of different sizes where it belongs the most in
+			hexString = hexString + (hexString1 + ' | ' + hexString2) + '\n' + str(file1[i].byteNextOffset) + '\t'
 			hexString1 = ''
 			hexString2 = ''
-		print(str(i))
 			
 	
 	print('File 1: \t\t     |\t\t File 2:')

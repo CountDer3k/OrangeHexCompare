@@ -1,5 +1,7 @@
 # Orange HexCompare
-A Visual Hex File Compare Tool written in Python using Kivy
+~~A Visual Hex File Compare Tool written in Python using Kivy~~
+
+A Terminal-based Hex File compare tool
 
 Since there's no good Hex compare tool I could find for mac, I decided to make my own.
 

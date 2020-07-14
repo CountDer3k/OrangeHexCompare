@@ -3,6 +3,7 @@
 # Orange Hex Compare
 
 import binascii
+import os
 from tkinter import Tk
 from tkinter.filedialog import askopenfilename
 
@@ -91,9 +92,31 @@ def printFile(num, hexString):
 def main():
 	file1Hex = pickFile()
 	file2Hex = pickFile()
-	print('Number of differences: ' + str(compareFiles(file1Hex, file2Hex)))
-	print('\n\n-------------------\n\n')
-	displayBothFilesInHex(file1Hex, file2Hex)
+	isRunning = True
+	while(isRunning):
+		print('Select an option from below')
+		print('[1] Display 2 files side by side')
+		print('[2] Display differences only')
+		print('[3] Exit')
+		answer = str(input())
+		
+		os.system('clear')
+		if(answer == '1'):
+			displayBothFilesInHex(file1Hex, file2Hex)
+			print('\n\n-------------------\n\n')
+		if(answer == '2'):
+			print('Number of differences: ' + str(compareFiles(file1Hex, file2Hex)))
+			print('\n\n-------------------\n\n')
+		if(answer == '3'):
+			print('\n\n-------------------\n\n')
+			print('Good-bye')
+			isRunning = False
+
+
+
+	
+	
+	
 	#??Ask user to show comparison or show differences only
 
 

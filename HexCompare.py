@@ -58,8 +58,10 @@ def displayBothFilesInHex(file1, file2):
 	hexString1 = ''
 	hexString2 = ''
 	for i in range (len(file1)):
-		if((i+1)%9==0):
-			hexString = hexString + (hexString1 + ' | ' + hexString2) + '\n'
+		if(i==0):
+			hexString = str(file1[i].byteOffset) + '\t'
+		if((i+1)%16==0):
+			hexString = hexString + (hexString1 + ' | ' + hexString2) + '\n' + str(file1[i].byteOffset) + '\t'
 			hexString1 = ''
 			hexString2 = ''
 		else:

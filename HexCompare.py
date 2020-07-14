@@ -3,11 +3,16 @@
 # Orange Hex Compare
 
 import binascii
+import os
 from tkinter import Tk
 from tkinter.filedialog import askopenfilename
 
+class ByteHolder():
+	byteValue = ''
+	byteColor = 'Black'
+	byteOffset = -1
 
-def displayFilesInHex(file1, file2):
+def displayFilesInHexOld(file1, file2):
 	hexString1 = ''
 	hexString2 = ''
 	offset = -16
@@ -33,35 +38,31 @@ def displayFilesInHex(file1, file2):
 			hexString1 = hexString1 + file1[i] + ' '+ "\033[92m"
 			hexString2 = hexString2 + file2[i] + ' '+ "\033[92m"
 	#Print information out to the screen
-	print('File 1: ')
-	print(hexString1)
-	print('\n-------------------\n')
-	print('File 2: ')
-	print(hexString2)
+	printFile(1, hexString1)
+	printFile(2, hexString2)
 
 
-def getHexOf(file):
+def getHexOfOld(file):
 	hexString = ''
 	with open(file, 'rb') as f:
-    # Change 100 to read from the length of entire file
-		for x in range(1000):
-			# Reads one byte at a time
-			content = f.read(1)
-			# Converts to hex then to useable string
-			pw_bytes = binascii.hexlify(content)
-			pw_bytes = pw_bytes.decode("utf-8")
-			hexString = hexString + str(pw_bytes)
+    # Need to dynamically read files
+		for x in range(100000):
+				# Reads one byte at a time
+				content = f.read(1)
+				# Converts to hex then to useable string
+				pw_bytes = binascii.hexlify(content)
+				pw_bytes = pw_bytes.decode("utf-8")
+				hexString = hexString + str(pw_bytes)
 	return hexString
 
-def pickFile():
+def pickFileOld():
 	print()
 	Tk().withdraw()
 	file = askopenfilename()
-	fileHex = getHexOf(file)
-	return fileHex
+	return getHexOf(file)
 	
 
-def compareFiles(file1, file2):
+def compareFilesOld(file1, file2):
 	for i in range( len(file1) ):
 		if((i%2==0) and (i > 2)):
 			byte1 = file1[i] + file1[i+1]
@@ -71,13 +72,59 @@ def compareFiles(file1, file2):
 				i = 0 if (i) < 0 else (i)
 				print('Byte at: ' + "\033[91m"+ str(hex(i)) + "\033[92m"+ ' are different!')
 
+def printFile(num, hexString):
+	print('File '+ num +': ')
+	print(hexString)
+	print('\n-------------------\n')
+
+
+####### New handlers
+def pickFile():
+	print()
+	Tk().withdraw()
+	file = askopenfilename()
+	return getHexOfNew(file)
+
+def getHexOf(file):
+	hexString = []
+	with open(file, 'rb') as f:
+    # Need to dynamically read files
+		for x in range(10000):
+				# Reads one byte at a time
+				content = f.read(1)
+				# Converts to hex then to useable string
+				pw_bytes = binascii.hexlify(content)
+				pw_bytes = pw_bytes.decode("utf-8")
+				
+				bt = ByteHolder()
+				bt.byteValue = pw_bytes
+				bt.byteOffset = hex(x)
+				hexString.append(bt)
+	return hexString
+
+def compareFiles(file1, file2):
+	for i in range(len(file1)):
+		if(file1[i].byteValue != file2[i].byteValue):
+			file1[i].byteColor = 'Red'
+			file2[i].byteColor = 'Red'
+			print('Byte at: ' + "\033[91m" + file1[i].byteOffset + " \033[92m" + 'are different!')
+
+
+
+#######
 
 def main():
+	#file1Hex = pickFileOld()
+	#file2Hex = pickFileOld()
+	#displayFilesInHexOld(file1Hex, file2Hex)
+	#print('\n-------------------\n\n')
+	#compareFilesOld(file1Hex, file2Hex)
+
 	file1Hex = pickFile()
 	file2Hex = pickFile()
-	displayFilesInHex(file1Hex, file2Hex)
+	#displayFilesInHex(file1Hex, file2Hex)
+	print('\n-------------------\n\n')
 	compareFiles(file1Hex, file2Hex)
-
 
 
 if __name__ == "__main__":

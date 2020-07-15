@@ -3,6 +3,7 @@
 # Orange Hex Compare
 
 import binascii
+#import emoji
 import os
 from tkinter import Tk
 from tkinter.filedialog import askopenfilename
@@ -12,12 +13,14 @@ class ByteHolder():
 	byteColor = "\033[92m"
 	byteOffset = -1
 	byteNextOffset = -1
+	byteFake = False
  
 #-------------------
 
 def getHexOf(file):
 	#?? Add blank characters at end of files if they are different sizes
 	#?? Add blank characters at end of file1 if line doesn't align
+	#?? Use byteFake to distinguish in the compare function
 	hexString = []
 	isBlank = False
 	x = 0
@@ -84,17 +87,17 @@ def displayBothFilesInHex(file1, file2):
 	print('File 1:                                      | File 2:')
 	print(hexString)
 
-def printFile(num, hexString):
-	print('File '+ num +': ')
-	print(hexString)
-	print('\n-------------------\n')
-#######
+
 
 def main():
 	file1Hex = pickFile()
 	file2Hex = pickFile()
 	isRunning = True
 	while(isRunning):
+		print('///////////////////////')
+		#orange = emoji.emojize(':orange:')
+		print('|||Orange HexCompare|||')
+		print('///////////////////////\n')
 		print('Select an option from below')
 		print('[1] Display 2 files side by side')
 		print('[2] Display differences only')
@@ -118,13 +121,8 @@ def main():
 			print('\n\n-------------------\n\n')
 			print('Good-bye')
 			isRunning = False
-
-
-
-	
-	
-	
-	#??Ask user to show comparison or show differences only
+		if(answer == 'Easter Egg'):
+			print('*********************************\n*** ****** ***** **** ***********\n*** ****** ********** ************\n*** ****** ***** **** ****  **  *\n*** ****** ***** **** ****  **  *\n***        ***** **** ***********\n*** ****** ***** **** *** ***** *\n*** ****** ***** **** ****      *\n*** ****** ***** **** ***********\n*** ****** ***** **** ***********\n*** ****** ***** ****************\n*** ****** ***** **** ***********\n*********************************')
 
 
 if __name__ == "__main__":

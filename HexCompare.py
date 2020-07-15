@@ -120,12 +120,13 @@ def fixAlignmentof(file1, file2):
 def writeDifferencesToText(file1, file2):
 	text_file = open("Diffrences.txt", "w")
 	differences = compareFiles(file1, file2)[0]
+	os.system('clear')
 	toText = ''
 	for i in differences:
 		toText = toText + i
 	n = text_file.write(toText)
 	text_file.close()
-	print('Successfully exported to Differences.txt')
+	print('\nSuccessfully exported to Differences.txt')
 
 def main():
 	file1Hex = pickFile()

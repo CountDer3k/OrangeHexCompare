@@ -13,11 +13,12 @@ greater compatibility and cross-platform
 
 ## Features
 
+- [X] Compares files (txt,png,sav,dat,etc.)
+- [X] Export differences to a text file
+- [ ] Add paging for larger binaries
+- [ ] Compares Apps
 - [ ] GUI
 - [ ] Edit Bytes
-- [X] Compares files (txt,png,sav,dat,etc.)
-- [ ] Compares Apps
-- [X] Export differences to a text file
 
 ## Bugs
 

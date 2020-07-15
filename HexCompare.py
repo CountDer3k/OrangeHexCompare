@@ -51,7 +51,6 @@ def compareFiles(file1, file2):
 			count = count + 1
 			file1[i].byteColor = "\033[91m"
 			file2[i].byteColor = "\033[91m"
-			#?? Show file 1 vs file 2 on print line
 			compareString = 'File 1: '  + file1[i].byteColor + file1[i].byteValue + " \033[92mvs File 2: " + file1[i].byteColor + file2[i].byteValue + " \033[92m"
 			print('Byte at: ' + file1[i].byteColor + file1[i].byteOffset + " \033[92m" + 'are different! ' + compareString)
 	return count
@@ -64,7 +63,9 @@ def displayBothFilesInHex(file1, file2):
 	hexString = ''
 	hexString1 = ''
 	hexString2 = ''
-	for i in range (len(file1)):
+	#?? Account for files of different sizes to prevent out of bounds
+	largerFile = len(file1) if len(file1) > len(file2) else len(file2)
+	for i in range (largerFile):
 		if(i==0):
 			hexString = str(file1[i].byteOffset) + '\t'
 		hexString1 = saveToString(hexString1, file1, i, '')
@@ -75,13 +76,10 @@ def displayBothFilesInHex(file1, file2):
 		if((i+1)%16==0 or i==len(file1)-1):
 			#?? Check length of hexString1, if it doesn't reach the halfway mark, add filler to make alignment work
 			#?? Make sure it doesn't show the offset for the next line if its the last line
-			#?? Account for files of different sizes where it belongs the most in
 			hexString = hexString + (hexString1 + ' | ' + hexString2) + '\n' + str(file1[i].byteNextOffset) + '\t'
 			hexString1 = ''
 			hexString2 = ''
-			
-	
-	print('File 1: \t\t     |\t\t File 2:')
+	print('File 1:                                      | File 2:')
 	print(hexString)
 
 def printFile(num, hexString):

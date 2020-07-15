@@ -1,6 +1,6 @@
 # Orange HexCompare
 ~~A Visual Hex File Compare Tool written in Python using Kivy~~
-(Will be Visual/GUI once I can ge Kivy working)
+(Will be Visual/GUI once I can get Kivy working)
 
 A Terminal-based Hex File compare tool
 

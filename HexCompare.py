@@ -75,10 +75,12 @@ def displayBothFilesInHex(file1, file2):
 			hexString2= hexString2 + ' '
 		if((i+1)%16==0 or i==len(file1)-1):
 			#?? Check length of hexString1, if it doesn't reach the halfway mark, add filler to make alignment work
-			#?? Make sure it doesn't show the offset for the next line if its the last line
-			hexString = hexString + (hexString1 + ' | ' + hexString2) + '\n' + str(file1[i].byteNextOffset) + '\t'
-			hexString1 = ''
-			hexString2 = ''
+			if(i==len(file1)-1):
+				hexString = hexString + (hexString1 + ' | ' + hexString2) + '\n'
+			else:	
+				hexString = hexString + (hexString1 + ' | ' + hexString2) + '\n' + str(file1[i].byteNextOffset) + '\t'
+				hexString1 = ''
+				hexString2 = ''
 	print('File 1:                                      | File 2:')
 	print(hexString)
 

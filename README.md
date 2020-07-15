@@ -15,7 +15,7 @@ greater compatibility and cross-platform
 - [ ] Edit Bytes
 - [X] Compares files (txt,png,sav,dat,etc.)
 - [ ] Compares Apps
-- [ ] Export differences to a text file
+- [X] Export differences to a text file
 
 ## Bugs
 

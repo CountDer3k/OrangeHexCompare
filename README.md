@@ -9,6 +9,8 @@ Since there's no good Hex compare tool I could find for mac, I decided to make m
 It's currently a work in progress, but the goal is to make it like other popular hex compare tools (HexFiend) but with
 greater compatibility and cross-platform
 
+<img src="Example.png" alt="Terminal screenshot of Orange HexCompare side-by-side example" width="500"/>
+
 ## Features
 
 - [ ] GUI

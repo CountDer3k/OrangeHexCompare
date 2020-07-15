@@ -7,6 +7,10 @@ import emoji
 import os
 from tkinter import Tk
 from tkinter.filedialog import askopenfilename
+import kivy
+
+from kivy.app import App
+from kivy.uix.label import Label
 
 class ByteHolder():
 	byteValue = ''
@@ -99,8 +103,9 @@ def displayBothFilesInHex(file1, file2):
 	print(hexString)
 
 def fixAlignmentof(file1, file2):
-	#?? Add blank characters at end of file1 if line doesn't align
 	files = []
+	#?? Add blank characters at end of file1 if line doesn't align
+
 	# blank characters at end of files if they are different sizes
 	if(len(file1) != len(file2)):
 		if(len(file1) > len(file2)):
@@ -171,6 +176,15 @@ def main():
 			print('*********************************\n*** ****** ***** **** ***********\n*** ****** ********** ************\n*** ****** ***** **** ****  **  *\n*** ****** ***** **** ****  **  *\n***        ***** **** ***********\n*** ****** ***** **** *** ***** *\n*** ****** ***** **** ****      *\n*** ****** ***** **** ***********\n*** ****** ***** **** ***********\n*** ****** ***** ****************\n*** ****** ***** **** ***********\n*********************************')
 
 
-if __name__ == "__main__":
-	main()
+#if __name__ == "__main__":
+#	main()
 
+
+class MyApp(App):
+
+    def build(self):
+        return Label(text='Hello world')
+
+
+if __name__ == '__main__':
+    MyApp().run()

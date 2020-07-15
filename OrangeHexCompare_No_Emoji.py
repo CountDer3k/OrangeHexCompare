@@ -7,6 +7,7 @@ import os
 from tkinter import Tk
 from tkinter.filedialog import askopenfilename
 
+
 class ByteHolder():
 	byteValue = ''
 	byteColor = "\033[92m"

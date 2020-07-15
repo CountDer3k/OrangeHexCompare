@@ -17,6 +17,9 @@ class ByteHolder():
  
 #-------------------
 
+RED = "\033[91m"
+BLACK = "\033[92m"
+
 def getHexOf(file):
 	#?? Add blank characters at end of files if they are different sizes
 	#?? Add blank characters at end of file1 if line doesn't align
@@ -54,10 +57,10 @@ def compareFiles(file1, file2):
 	for i in range(len(file1)):
 		if(file1[i].byteValue != file2[i].byteValue):
 			count = count + 1
-			file1[i].byteColor = "\033[91m"
-			file2[i].byteColor = "\033[91m"
-			compareString = 'File 1: '  + file1[i].byteColor + file1[i].byteValue + " \033[92mvs File 2: " + file1[i].byteColor + file2[i].byteValue + " \033[92m"
-			print('Byte at: ' + file1[i].byteColor + file1[i].byteOffset + " \033[92m" + 'are different! ' + compareString)
+			file1[i].byteColor = RED
+			file2[i].byteColor = RED
+			compareString = 'File 1: '  + file1[i].byteColor + file1[i].byteValue + BLACK + ' vs File 2: ' + file1[i].byteColor + file2[i].byteValue + BLACK
+			print('Byte at: ' + file1[i].byteColor + file1[i].byteOffset + BLACK + ' are different! ' + compareString)
 	return count
 
 def saveToString(data, file, i, ending):

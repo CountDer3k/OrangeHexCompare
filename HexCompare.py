@@ -119,12 +119,12 @@ def main():
 	file2Hex = files[1]
 	isRunning = True
 	while(isRunning):
-		print('///////////////////////')
+		print('_______________________')
 		#orange = emoji.emojize(':orange:')
-		print('|||Orange HexCompare|||')
-		print('///////////////////////\n')
+		print('   Orange HexCompare   ')
+		print('_______________________\n')
 		print('Select an option from below')
-		print('[1] Display 2 files side by side')
+		print('[1] Display files side-by-side')
 		print('[2] Display differences only')
 		print('[3] Exit')
 		answer = str(input())		

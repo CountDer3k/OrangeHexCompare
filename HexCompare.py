@@ -55,6 +55,8 @@ def pickFile():
 	return getHexOf(file)
 
 def compareFiles(file1, file2):
+	info = []
+	textInfo = ''
 	count = 0
 	for i in range(len(file1)):
 		if(file1[i].byteValue != file2[i].byteValue and not file1[i].byteFake and not file2[i].byteFake):
@@ -62,8 +64,12 @@ def compareFiles(file1, file2):
 			file1[i].byteColor = RED
 			file2[i].byteColor = RED
 			compareString = 'File 1: '  + file1[i].byteColor + file1[i].byteValue + BLACK + ' vs File 2: ' + file1[i].byteColor + file2[i].byteValue + BLACK
-			print('Byte at: ' + file1[i].byteColor + file1[i].byteOffset + BLACK + ' are different! ' + compareString)
-	return count
+			fullString = 'Byte at: ' + file1[i].byteColor + file1[i].byteOffset + BLACK + ' are different! ' + compareString
+			textInfo = textInfo + 'Byte at: ' + file1[i].byteOffset + ' are different! ' + 'File 1 Value: ' + file1[i].byteValue + ' vs File 2 Value: ' + file2[i].byteValue + '\n'
+			print(fullString)
+	info.append(textInfo)
+	info.append(count)
+	return info
 
 def saveToString(data, file, i, ending):
 	hexString = data + file[i].byteColor + file[i].byteValue + "\033[92m" + ending
@@ -111,6 +117,16 @@ def fixAlignmentof(file1, file2):
 	files.append(file2)
 	return files
 
+def writeDifferencesToText(file1, file2):
+	text_file = open("Diffrences.txt", "w")
+	differences = compareFiles(file1, file2)[0]
+	toText = ''
+	for i in differences:
+		toText = toText + i
+	n = text_file.write(toText)
+	text_file.close()
+	print('Successfully exported to Differences.txt')
+
 def main():
 	file1Hex = pickFile()
 	file2Hex = pickFile()
@@ -126,7 +142,8 @@ def main():
 		print('Select an option from below')
 		print('[1] Display files side-by-side')
 		print('[2] Display differences only')
-		print('[3] Exit')
+		print('[3] Export differences to text file')
+		print('[4] Exit')
 		answer = str(input())		
 		os.system('clear')
 
@@ -140,9 +157,12 @@ def main():
 			print('--------------------------')
 			print('    Offset Differences    ')
 			print('--------------------------\n')
-			print('\nNumber of differences: ' + str(compareFiles(file1Hex, file2Hex)))
+			print('\nNumber of differences: ' + str(compareFiles(file1Hex, file2Hex)[1]))
 			print('\n\n-------------------\n\n')
 		if(answer == '3'):
+			writeDifferencesToText(file1Hex, file2Hex)
+			print('\n\n-------------------\n\n')
+		if(answer == '4'):
 			print('\n\n-------------------\n\n')
 			print('Good-bye')
 			isRunning = False

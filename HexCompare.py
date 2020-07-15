@@ -3,7 +3,7 @@
 # Orange Hex Compare
 
 import binascii
-#import emoji
+import emoji
 import os
 from tkinter import Tk
 from tkinter.filedialog import askopenfilename
@@ -137,8 +137,8 @@ def main():
 	isRunning = True
 	while(isRunning):
 		print('_______________________')
-		#orange = emoji.emojize(':orange:')
-		print('   Orange HexCompare   ')
+		orange = emoji.emojize(':tangerine:')
+		print(' '+orange + 'Orange HexCompare' + orange +'  ')
 		print('_______________________\n')
 		print('Select an option from below')
 		print('[1] Display files side-by-side')

@@ -16,6 +16,8 @@ class ByteHolder():
 #-------------------
 
 def getHexOf(file):
+	#?? Add blank characters at end of files if they are different sizes
+	#?? Add blank characters at end of file1 if line doesn't align
 	hexString = []
 	isBlank = False
 	x = 0
@@ -63,7 +65,6 @@ def displayBothFilesInHex(file1, file2):
 	hexString = ''
 	hexString1 = ''
 	hexString2 = ''
-	#?? Account for files of different sizes to prevent out of bounds
 	largerFile = len(file1) if len(file1) > len(file2) else len(file2)
 	for i in range (largerFile):
 		if(i==0):
@@ -74,7 +75,6 @@ def displayBothFilesInHex(file1, file2):
 			hexString1= hexString1 + ' '
 			hexString2= hexString2 + ' '
 		if((i+1)%16==0 or i==len(file1)-1):
-			#?? Check length of hexString1, if it doesn't reach the halfway mark, add filler to make alignment work
 			if(i==len(file1)-1):
 				hexString = hexString + (hexString1 + ' | ' + hexString2) + '\n'
 			else:	

@@ -11,6 +11,11 @@ greater compatibility and cross-platform
 
 <img src="Example.png" alt="Terminal screenshot of Orange HexCompare side-by-side example" width="500"/>
 
+## Dependencies
+
+* [Emoji](https://pypi.org/project/emoji/)
+
+
 ## Features
 
 - [X] Compares files (txt,png,sav,dat,etc.)

@@ -20,10 +20,15 @@ class ByteHolder():
 RED = "\033[91m"
 BLACK = "\033[92m"
 
+def createByteObject(value, offset, isFake):
+	bt = ByteHolder()
+	bt.byteValue = value
+	bt.byteOffset = hex(offset)
+	bt.byteNextOffset = hex(offset+1)
+	bt.byteFake = isFake
+	return bt
+
 def getHexOf(file):
-	#?? Add blank characters at end of files if they are different sizes
-	#?? Add blank characters at end of file1 if line doesn't align
-	#?? Use byteFake to distinguish in the compare function
 	hexString = []
 	isBlank = False
 	x = 0
@@ -36,10 +41,7 @@ def getHexOf(file):
 			pw_bytes = pw_bytes.decode("utf-8")
 
 			if(pw_bytes != ''):	
-				bt = ByteHolder()
-				bt.byteValue = pw_bytes
-				bt.byteOffset = hex(x)
-				bt.byteNextOffset = hex(x+1)
+				bt = createByteObject(pw_bytes, x, False)
 				hexString.append(bt)
 				x = x + 1
 			else:
@@ -55,7 +57,7 @@ def pickFile():
 def compareFiles(file1, file2):
 	count = 0
 	for i in range(len(file1)):
-		if(file1[i].byteValue != file2[i].byteValue):
+		if(file1[i].byteValue != file2[i].byteValue and not file1[i].byteFake and not file2[i].byteFake):
 			count = count + 1
 			file1[i].byteColor = RED
 			file2[i].byteColor = RED
@@ -90,11 +92,31 @@ def displayBothFilesInHex(file1, file2):
 	print('File 1:                                      | File 2:')
 	print(hexString)
 
-
+def fixAlignmentof(file1, file2):
+	#?? Add blank characters at end of file1 if line doesn't align
+	files = []
+	# blank characters at end of files if they are different sizes
+	if(len(file1) != len(file2)):
+		if(len(file1) > len(file2)):
+			sizeToAdd = len(file1) - len(file2)
+			for x in range(sizeToAdd):
+				bt = createByteObject('  ', x, True)
+				file2.append(bt)
+		if(len(file1) < len(file2)):
+			sizeToAdd = len(file2) - len(file1)
+			for x in range(sizeToAdd):
+				bt = createByteObject('  ', x, True)
+				file1.append(bt)
+	files.append(file1)
+	files.append(file2)
+	return files
 
 def main():
 	file1Hex = pickFile()
 	file2Hex = pickFile()
+	files =	fixAlignmentof(file1Hex, file2Hex)
+	file1Hex = files[0]
+	file2Hex = files[1]
 	isRunning = True
 	while(isRunning):
 		print('///////////////////////')
@@ -130,3 +152,4 @@ def main():
 
 if __name__ == "__main__":
 	main()
+

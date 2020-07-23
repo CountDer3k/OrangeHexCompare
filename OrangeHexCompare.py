@@ -2,17 +2,14 @@
 # July 2020
 # Orange Hex Compare
 
-import codeBase
-import emoji
-import os
-import kivy
+import codeBase, os, kivy
 from kivy.app import App
 from kivy.uix.label import Label
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.uix.gridlayout import GridLayout
+from kivy.graphics import *
 
-ORANGE_EMOJI = emoji.emojize(':tangerine:')
 
 def main():
 	file1Hex = codeBase.pickFile()
@@ -22,17 +19,7 @@ def main():
 	file2Hex = files[1]
 	isRunning = True
 	while(isRunning):
-		print('_______________________')
-		orange = emoji.emojize(':tangerine:')
-		print(' '+orange + 'Orange HexCompare' + orange +'  ')
-		print('_______________________\n')
-		print('Select an option from below')
-		print('[1] Display files side-by-side')
-		print('[2] Display differences only')
-		print('[3] Export differences to text file')
-		print('[4] Exit')
-		answer = str(input())		
-		os.system('clear')
+
 
 		if(answer == '1'):
 			print('--------------------------')
@@ -57,20 +44,38 @@ def main():
 			print('*********************************\n*** ****** ***** **** ***********\n*** ****** ********** ************\n*** ****** ***** **** ****  **  *\n*** ****** ***** **** ****  **  *\n***        ***** **** ***********\n*** ****** ***** **** *** ***** *\n*** ****** ***** **** ****      *\n*** ****** ***** **** ***********\n*** ****** ***** **** ***********\n*** ****** ***** ****************\n*** ****** ***** **** ***********\n*********************************')
 
 def OrangeLayout(self):
-	self.title = ORANGE_EMOJI + 'Orange HexCompare' + ORANGE_EMOJI
-	layout = GridLayout(cols=3)
-	layout.add_widget(Label(text='1\n2\n3\n4\n5\n6\n7', size_hint_x=None, width=35))
-	layout.add_widget(Label(text='Hex Edit 1'))
-	layout.add_widget(Label(text='Hex Edit 2'))
-	return layout
+	
 
-#if __name__ == "__main__":
-#	main()
+	file1Hex = codeBase.pickFile()
+	file2Hex = codeBase.pickFile()
+	files = codeBase.FormatFilesInHex(file1Hex,file2Hex)
+	file1Hex = files[0]
+	file2Hex = files[1]
+	hexCount = files[2]
+
+	layout = GridLayout(cols=5)
+	layout.add_widget(Label(text=hexCount, size_hint_x=None, width=50))
+
+	separatorLabel = Label(size_hint_x=None, width=3)
+	with separatorLabel.canvas:
+            Color(1, 1, 1, 1)
+            Rectangle(pos=(42,0), size=(3,1000))
+	layout.add_widget(separatorLabel)
+
+	layout.add_widget(Label(text=file1Hex, markup=True))
+	separatorLabel2 = Label(size_hint_x=None, width=3)
+	with separatorLabel2.canvas:
+            Color(1, 1, 1, 1)
+            Rectangle(pos=(415, 0), size=(3,1000))
+	layout.add_widget(separatorLabel2)
+	layout.add_widget(Label(text=file2Hex, markup=True))
+	return layout
 
 
 class MyApp(App):
 
 	def build(self):
+		self.title = codeBase.ORANGE_EMOJI + 'Orange HexCompare' + codeBase.ORANGE_EMOJI
 		layout = OrangeLayout(self)
 		return layout
 

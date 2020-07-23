@@ -5,18 +5,22 @@ import os
 from tkinter import Tk
 from tkinter.filedialog import askopenfilename
 
+
+#TERMINAL_RED = "\033[91m"
+#TERMONAL_BLACK = "\033[97m"
+RED = '[color=ff0000]'
+BLACK = '[color=ffffff]'
+ORANGE_EMOJI = emoji.emojize(':tangerine:')
+
 class ByteHolder():
 	byteValue = ''
-	byteColor = "\033[92m"
+	byteColor = BLACK
 	byteOffset = -1
 	byteNextOffset = -1
 	byteFake = False
  
 #-------------------
 
-RED = "\033[91m"
-BLACK = "\033[92m"
-ORANGE_EMOJI = emoji.emojize(':tangerine:')
 
 def createByteObject(value, offset, isFake):
 	bt = ByteHolder()
@@ -39,7 +43,7 @@ def getHexOf(file):
 			pw_bytes = pw_bytes.decode("utf-8")
 
 			if(pw_bytes != ''):	
-				bt = createByteObject(pw_bytes, x, False)
+				bt = createByteObject(pw_bytes.upper(), x, False)
 				hexString.append(bt)
 				x = x + 1
 			else:
@@ -70,7 +74,7 @@ def compareFiles(file1, file2):
 	return info
 
 def saveToString(data, file, i, ending):
-	hexString = data + file[i].byteColor + file[i].byteValue + "\033[92m" + ending
+	hexString = data + file[i].byteColor + file[i].byteValue + '[/color]' + ending
 	return hexString
 
 def displayBothFilesInHex(file1, file2):
@@ -126,6 +130,65 @@ def writeDifferencesToText(file1, file2):
 	n = text_file.write(toText)
 	text_file.close()
 	print('\nSuccessfully exported to Differences.txt')
+
+
+#------------------
+# Non Terminal Code
+#------------------
+
+def SpotDifferences(file1,file2):
+	files = []
+	for i in range(len(file1)):
+		if(file1[i].byteValue != file2[i].byteValue and not file1[i].byteFake and not file2[i].byteFake):
+			file1[i].byteColor = RED
+			file2[i].byteColor = RED
+	files.append(file1)
+	files.append(file2)
+	return files
+
+
+def FormatFilesInHex(file1, file2):
+	files = []
+	# Adds blank characters at end of file to make both files same size
+	if(len(file1) != len(file2)):
+		if(len(file1) > len(file2)):
+			sizeToAdd = len(file1) - len(file2)
+			for x in range(sizeToAdd):
+				bt = createByteObject('  ', x, True)
+				file2.append(bt)
+		if(len(file1) < len(file2)):
+			sizeToAdd = len(file2) - len(file1)
+			for x in range(sizeToAdd):
+				bt = createByteObject('  ', x, True)
+				file1.append(bt)
+
+	# Shows the differences between the files
+	filesWithDifferences = SpotDifferences(file1, file2)
+	hexString1 = filesWithDifferences[0]
+	hexString2 = filesWithDifferences[1]
+
+	# Formats the strings for each file
+	hexString1 = ''
+	hexString2 = ''
+	hexCount = ''
+	for i in range (len(file1)):
+		hexString1 = saveToString(hexString1, file1, i, ' ')
+		hexString2 = saveToString(hexString2, file2, i, ' ')
+		if((i+1)%4 == 0):
+			hexString1 = hexString1 + '   '
+			hexString2 = hexString2 + '   '
+		if((i+1)%16 == 0):
+			hexString1 = hexString1 + '\n'
+			hexString2 = hexString2 + '\n'
+			#if(i != len(file1)-1):
+			hexCount = hexCount + str(file1[i].byteNextOffset) + '\n'
+
+	# Returns files
+	files.append(hexString1)
+	files.append(hexString2)
+	files.append(hexCount)
+	return files
+
 
 def main():
 	file1Hex = pickFile()

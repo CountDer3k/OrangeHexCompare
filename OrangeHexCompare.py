@@ -11,44 +11,12 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.graphics import *
 
 
-def main():
-	file1Hex = codeBase.pickFile()
-	file2Hex = codeBase.pickFile()
-	files =	codeBase.fixAlignmentof(file1Hex, file2Hex)
-	file1Hex = files[0]
-	file2Hex = files[1]
-	isRunning = True
-	while(isRunning):
-
-
-		if(answer == '1'):
-			print('--------------------------')
-			print('     File Comparison      ')
-			print('--------------------------\n')
-			codeBase.displayBothFilesInHex(file1Hex, file2Hex)
-			print('\n\n-------------------\n\n')
-		if(answer == '2'):
-			print('--------------------------')
-			print('    Offset Differences    ')
-			print('--------------------------\n')
-			print('\nNumber of differences: ' + str(codeBase.compareFiles(file1Hex, file2Hex)[1]))
-			print('\n\n-------------------\n\n')
-		if(answer == '3'):
-			codeBase.writeDifferencesToText(file1Hex, file2Hex)
-			print('\n\n-------------------\n\n')
-		if(answer == '4'):
-			print('\n\n-------------------\n\n')
-			print('Good-bye')
-			isRunning = False
-		if(answer == 'Easter Egg'):
-			print('*********************************\n*** ****** ***** **** ***********\n*** ****** ********** ************\n*** ****** ***** **** ****  **  *\n*** ****** ***** **** ****  **  *\n***        ***** **** ***********\n*** ****** ***** **** *** ***** *\n*** ****** ***** **** ****      *\n*** ****** ***** **** ***********\n*** ****** ***** **** ***********\n*** ****** ***** ****************\n*** ****** ***** **** ***********\n*********************************')
-
-def OrangeLayout(self):
+def orange_layout(self):
 	
 
-	file1Hex = codeBase.pickFile()
-	file2Hex = codeBase.pickFile()
-	files = codeBase.FormatFilesInHex(file1Hex,file2Hex)
+	file1Hex = codeBase.pick_file()
+	file2Hex = codeBase.pick_file()
+	files = codeBase.format_files_in_hex(file1Hex,file2Hex)
 	file1Hex = files[0]
 	file2Hex = files[1]
 	hexCount = files[2]
@@ -76,7 +44,7 @@ class MyApp(App):
 
 	def build(self):
 		self.title = codeBase.ORANGE_EMOJI + 'Orange HexCompare' + codeBase.ORANGE_EMOJI
-		layout = OrangeLayout(self)
+		layout = orange_layout(self)
 		return layout
 
         

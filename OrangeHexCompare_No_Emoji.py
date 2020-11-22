@@ -7,6 +7,7 @@ import os
 from tkinter import Tk
 from tkinter.filedialog import askopenfilename
 
+
 class ByteHolder():
 	byteValue = ''
 	byteColor = "\033[92m"
@@ -46,6 +47,38 @@ def getHexOf(file):
 			else:
 				isBlank = True
 	return hexString
+
+# takes a file in & then returns an array of arrays for the length of the file
+def getHexOfInArray(file):
+	hexString = []
+	hexStringLine = []
+	isBlank = False
+	lineAmount = 0
+	with open(file, 'rb') as f:
+		while(not isBlank):
+			#Read one byte at a time
+			content = f.read(1)
+			# Converts to hex then to useable string
+			pw_bytes = binascii.hexlify(content)
+			pw_bytes = pw_bytes.decode("utf-8")
+
+			# Takes 16 bytes
+			if(lineAmount != 16):
+				# Add byte to an array
+				hexStringLine.append(pw_bytes)
+				lineAmount = lineAmount + 1
+			else:
+				# add array to final array
+				hexString.append(hexStringLine)
+				# Clear temp values
+				hexStringLine.clear()
+				lineAmount = 0
+			# When the last byte is blank break out of while loop
+			if(pw_bytes == ''):
+				isBlank = True
+	return hexString	
+
+
 
 def pickFile():
 	print()

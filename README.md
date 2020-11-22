@@ -1,7 +1,9 @@
 # Orange HexCompare
 ~~A Visual Hex File Compare Tool written in Python using Kivy~~
-(Will be Visual/GUI once I can get Kivy working)
+~~(Will be Visual/GUI once I can get Kivy working)
 
+A Visual Hex File Compare Tool written in Python using PySimpleGUI
+&
 A Terminal-based Hex File compare tool
 
 Since there's no good Hex compare tool I could find for mac, I decided to make my own.
@@ -10,6 +12,7 @@ It's currently a work in progress, but the goal is to make it like other popular
 greater compatibility and cross-platform
 
 <img src="Example.png" alt="Terminal screenshot of Orange HexCompare side-by-side example" width="500"/>
+<img src="ExampleGUI.png" alt="GUI screenshot of Orange HexCompare side-by-side example" width="500"/>
 
 ## Dependencies
 
@@ -22,10 +25,17 @@ greater compatibility and cross-platform
 - [X] Export differences to a text file
 - [ ] Add paging for larger binaries
 - [ ] Compares Apps
-- [ ] GUI
+- [X] GUI
 - [ ] Edit Bytes
 
 ## Bugs
 
 * On first load side-by-side view doesn't highlight the differences.
   * Fix: load 'Display differences only' then load 'Display files side-by-side'
+
+## Currently in the works
+- [ ] Improve GUI looks
+- [ ] Add GUI Themes
+- [ ] Fix alignment in GUI
+- [ ] Implement 'exporting' on GUI
+- [ ] Implement 'show differences' on GUI

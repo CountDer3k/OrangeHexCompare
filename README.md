@@ -1,12 +1,9 @@
-# Orange HexCompare
-~~A Visual Hex File Compare Tool written in Python using Kivy~~
-~~(Will be Visual/GUI once I can get Kivy working)
+# :tangerine: Orange HexCompare :tangerine:
+A Visual Hex File Compare Tool written in Python using PySimpleGUI &
 
-A Visual Hex File Compare Tool written in Python using PySimpleGUI
-&
 A Terminal-based Hex File compare tool
 
-Since there's no good Hex compare tool I could find for mac, I decided to make my own.
+Since there's no good Hex compare tool I could find for mac (didn't compare side by side accurately), I decided to make my own.
 
 It's currently a work in progress, but the goal is to make it like other popular hex compare tools (HexFiend) but with
 greater compatibility and cross-platform
@@ -16,7 +13,13 @@ greater compatibility and cross-platform
 
 ## Dependencies
 
-* [Emoji](https://pypi.org/project/emoji/)
+* [Emoji](https://pypi.org/project/emoji/) (Optional for terminal version)
+* [PySimpleGUI](https://pysimplegui.readthedocs.io/en/latest/#install)
+  * To Install **PySimpleGUI**:
+
+        pip install pysimplegui
+        or
+        pip3 install pysimplegui
 
 
 ## Features

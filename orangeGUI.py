@@ -8,6 +8,9 @@ listBoxHeight = 50
 sg.theme('DarkGrey3')
 sg.theme('Topanga')
 
+def show_hex_differences():
+	s = 1
+
 def showBothFiles(file1, file2):
 	windowBase.hide()
 	windowShow = make_windowShow(file1, file2)
@@ -54,7 +57,7 @@ def main():
 		# Events for the window showing the 2 files
 		if window == windowShow:
 			if event == 'Show Only Differences':
-				s = 1
+				show_hex_differences()
 			elif event == 'Export Differences':
 				s = 1
 
